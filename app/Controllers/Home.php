@@ -15,4 +15,9 @@ class Home extends BaseController
     {
         return view('home', ['title' => 'Home']);
     }
+
+    public function placeholder($var1, $var2, $var3)
+    {
+        return "Placeholder 1: $var1 <br> Placeholder 2: $var2 <br> Placeholder 3: $var3";
+    }
 }

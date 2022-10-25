@@ -32,6 +32,7 @@
                     <thead>
                       <tr>
                         <th>No</th>
+                        <th>Username</th>
                         <th>Full Name</th>
                         <th>First Name</th>
                         <th>Last Name</th>
@@ -43,6 +44,7 @@
                       <?php foreach ($users as $key => $user) : ?>
                       <tr>
                         <td><?= $no++ ?></td>
+                        <td><?= $user->username ?></td>
                         <td><?= $user->firstName . " " . $user->lastName ?></td>
                         <td><?= $user->firstName ?></td>
                         <td><?= $user->lastName ?></td>

@@ -9,7 +9,7 @@
       <div class="card shadow mb-4">
         <div class="card-body">   
           <h1 class="h4 mb-4 text-gray-800 text-center">Form Create New User</h1>
-          <form action="<?= base_url() ?>/user" method="post">
+          <form action="<?= url_to('user') ?>" method="post">
             <div class="mb-3">
               <label for="first_name" class="form-label">First Name</label>
               <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Type First Name . . . ">
