@@ -13,7 +13,7 @@ class AddToTableUsers extends Migration
                 'type' => 'varchar',
                 'constraint' => 50,
                 'unique' => true,
-                'after' => 'user_id',
+                'after' => 'lastName',
             ],
             'password' => [
                 'type' => 'varchar',

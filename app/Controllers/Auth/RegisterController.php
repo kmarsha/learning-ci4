@@ -27,10 +27,10 @@ class RegisterController extends BaseController
         $last_name = $this->request->getPost('last_name');
 
         $this->model->insert([
-            'username' => $username,
-            'password' => $password,
             'firstName' => $first_name,
-            'lastName' => $last_name
+            'lastName' => $last_name,
+            'username' => $username,
+            'password' => $password
         ]);
 
         $data_session = [
