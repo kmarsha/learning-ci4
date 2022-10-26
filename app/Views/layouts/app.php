@@ -80,6 +80,9 @@
     <script src="<?= base_url() ?>/vendor/jquery/jquery.min.js"></script>
     <script src="<?= base_url() ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Sweetalert2 Plugin -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Core plugin JavaScript-->
     <script src="<?= base_url() ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
@@ -95,7 +98,49 @@
         $(document).ready(function() {
             $('.dataTable').DataTable();
         });
+
+        function sessionSuccess(msg) {
+            Swal.fire({
+                title: 'Success!',
+                text: msg,
+                icon: 'success',
+            })
+        }
+
+        function sessionWarning(msg) {
+            Swal.fire({
+                title: 'Warning!',
+                text: msg,
+                icon: 'warning',
+            })
+        }
+
+        function sessionError(msg) {
+            Swal.fire({
+                title: 'Error!',
+                text: msg,
+                icon: 'error',
+            })
+        }
     </script>
+
+    <?php
+        if (session()->has('success')) {
+            $msg = session()->getFlashdata('success');
+            echo "<script>sessionSuccess('$msg')</script>";
+        }
+
+        if (session()->has('warning')) {
+            $msg = session()->getFlashdata('warning');
+            echo "<script>sessionWarning('$msg')</script>";
+        }
+
+        if (session()->has('error')) {
+            $msg = session()->getFlashdata('error');
+            echo "<script>sessionError('$msg')</script>";
+        }
+    ?>
+
 </body>
 
 </html>

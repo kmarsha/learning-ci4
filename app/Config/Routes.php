@@ -37,12 +37,7 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/home', 'Home::homePage', ['as' => 'home-page']);
-$routes->get('/user', 'UserController::index', ['as' => 'user-view']);
-$routes->get('/user/new', 'UserController::new');
-$routes->post('/user', 'UserController::create');
-$routes->get('/user/(:num)/edit', 'UserController::edit/$1');
-$routes->post('/user/(:num)', 'UserController::update/$1');
-$routes->get('/user/(:num)/delete', 'UserController::delete/$1');
+
 
 // $routes->get('admin', 'Admin\ProductController::index');
 // $routes->get('/admin', 'ProductController::index', ['namespace' => 'App\Controllers\Admin']);
@@ -53,12 +48,25 @@ $routes->group('', ['namespace' => 'App\Controllers\Admin'], function($routes) {
 
 $routes->get('/placeholder/(.*)/and/(.*)/then/(.*)', 'Home::placeholder/$1/$2/$3');
 
-$routes->get('/register', 'Auth\RegisterController::index', ['as' => 'register-view']);
-$routes->post('/register', 'Auth\RegisterController::auth', ['as' => 'register']);
+$routes->group('', ['filter' => 'guest'], function($routes) {
+    $routes->get('/register', 'Auth\RegisterController::index', ['as' => 'register-view']);
+    $routes->post('/register', 'Auth\RegisterController::auth', ['as' => 'register']);
 
-$routes->get('/login', 'Auth\LoginController::index', ['as' => 'login-view']);
-$routes->post('/login', 'Auth\LoginController::auth', ['as' => 'login']);
-$routes->get('/logout', 'Auth\LoginController::logout', ['as' => 'logout']);
+    $routes->get('/login', 'Auth\LoginController::index', ['as' => 'login-view']);
+    $routes->post('/login', 'Auth\LoginController::auth', ['as' => 'login']);
+});
+
+$routes->group('', ['filter' => 'auth'], function($routes) {
+    $routes->get('/user', 'UserController::index', ['as' => 'user-view']);
+    $routes->get('/user/new', 'UserController::new');
+    $routes->post('/user', 'UserController::create');
+    $routes->get('/user/(:num)/edit', 'UserController::edit/$1');
+    $routes->post('/user/(:num)', 'UserController::update/$1');
+    $routes->get('/user/(:num)/delete', 'UserController::delete/$1');
+    $routes->get('/logout', 'Auth\LoginController::logout', ['as' => 'logout']);
+});
+
+// $routes->get('')
 
 /*
  * --------------------------------------------------------------------
