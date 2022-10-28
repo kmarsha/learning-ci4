@@ -26,19 +26,23 @@ class LoginController extends BaseController
 
         $user = $this->model->where('username', $username)->first();
 
-        $verify_pass = password_verify($password, $user->password);
+        if ($user != null) {
+            $verify_pass = password_verify($password, $user->password);
 
-        if ($verify_pass) {
-            $data_session = [
-                'isLogin' => true,
-                'username' => $username
-            ];
+            if ($verify_pass) {
+                $data_session = [
+                    'isLogin' => true,
+                    'username' => $username,
+                ];
 
-            session()->set($data_session);
+                session()->set($data_session);
 
-            return redirect()->route('home-page')->with('success', 'Login is success');
+                return redirect()->route('home-page')->with('success', 'Login is success');
+            } else {
+                return redirect()->back()->withInput()->with('error', 'Password is wrong');
+            }
         } else {
-            return redirect()->back()->withInput()->with('error', 'Password is wrong');
+            return redirect()->back()->withInput()->with('error', 'There\'s no existing username with your input');
         }
     }
 

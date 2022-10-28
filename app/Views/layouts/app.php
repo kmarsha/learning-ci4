@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,24 +12,21 @@
 
     <!-- Custom fonts for this template-->
     <link href="<?= base_url() ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url() ?>/css/sb-admin-2.min.css" rel="stylesheet">
-    <link
-			href="<?= base_url() ?>/vendor/datatables/dataTables.bootstrap4.min.css"
-			rel="stylesheet"
-		/>
+    <link href="<?= base_url() ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
+    <?= $this->renderSection('css'); ?>
 </head>
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <?= $this->include('layouts/sidebar') ;?>
+        <?= $this->include('layouts/sidebar'); ?>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -36,14 +34,14 @@
             <!-- Main Content -->
             <div id="content">
 
-                <?= $this->include('layouts/nav') ;?>
+                <?= $this->include('layouts/nav'); ?>
 
-                <?= $this->renderSection('content') ;?>
+                <?= $this->renderSection('content'); ?>
 
             </div>
             <!-- End of Main Content -->
 
-            <?= $this->include('layouts/footer') ;?>
+            <?= $this->include('layouts/footer'); ?>
 
         </div>
         <!-- End of Content Wrapper -->
@@ -57,8 +55,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -79,6 +76,14 @@
     <!-- Bootstrap core JavaScript-->
     <script src="<?= base_url() ?>/vendor/jquery/jquery.min.js"></script>
     <script src="<?= base_url() ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery Validation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js" integrity="sha512-6S5LYNn3ZJCIm0f9L6BCerqFlQ4f5MwNKq+EthDXabtaJvg3TuFLhpno9pcm+5Ynm6jdA9xfpQoMz2fcjVMk9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- jQuery Validation
+    <script src="<?= base_url() ?>/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="<?= base_url() ?>/vendor/jquery-validation/additional-methods.min.js"></script> -->
 
     <!-- Sweetalert2 Plugin -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -125,21 +130,23 @@
     </script>
 
     <?php
-        if (session()->has('success')) {
-            $msg = session()->getFlashdata('success');
-            echo "<script>sessionSuccess('$msg')</script>";
-        }
+    if (session()->has('success')) {
+        $msg = session()->getFlashdata('success');
+        echo "<script>sessionSuccess('$msg')</script>";
+    }
 
-        if (session()->has('warning')) {
-            $msg = session()->getFlashdata('warning');
-            echo "<script>sessionWarning('$msg')</script>";
-        }
+    if (session()->has('warning')) {
+        $msg = session()->getFlashdata('warning');
+        echo "<script>sessionWarning('$msg')</script>";
+    }
 
-        if (session()->has('error')) {
-            $msg = session()->getFlashdata('error');
-            echo "<script>sessionError('$msg')</script>";
-        }
+    if (session()->has('error')) {
+        $msg = session()->getFlashdata('error');
+        echo "<script>sessionError('$msg')</script>";
+    }
     ?>
+
+    <?= $this->renderSection('js') ?>
 
 </body>
 

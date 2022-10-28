@@ -11,7 +11,7 @@ class RegisterController extends BaseController
     {
         $this->model = new UserModel;
     }
-    
+
     public function index()
     {
         return view('auth/register', [
@@ -21,25 +21,45 @@ class RegisterController extends BaseController
 
     public function auth()
     {
-        $username = $this->request->getPost('username');
-        $password = password_hash($this->request->getPost('password'), PASSWORD_BCRYPT);
-        $first_name = $this->request->getPost('first_name');
-        $last_name = $this->request->getPost('last_name');
-
-        $this->model->insert([
-            'firstName' => $first_name,
-            'lastName' => $last_name,
-            'username' => $username,
-            'password' => $password
-        ]);
-
-        $data_session = [
-            'isLogin' => true,
-            'username' => $username,
+        $rules = [
+            'first_name' => 'required|alpha_space|min_length[3]',
+            'last_name' => 'required|alpha_space',
+            'username' => 'required|alpha_dash|min_length[3]|is_unique[users.username]',
+            'password' => 'required|alpha_numeric_punct|min_length[4]',
         ];
 
-        session()->set($data_session);
+        $error_message = [
+            'username' => [
+                'required' => 'You must fill in the Username it Importans!',
+                'is_unique' => 'Username not available'
+            ],
+        ];
 
-        return redirect()->route('home-page')->with('success', 'Register is success');
+        $validated = $this->validate($rules, $error_message);
+
+        if ($validated) {
+            $username = $this->request->getPost('username');
+            $password = password_hash($this->request->getPost('password'), PASSWORD_BCRYPT);
+            $first_name = $this->request->getPost('first_name');
+            $last_name = $this->request->getPost('last_name');
+
+            $this->model->insert([
+                'firstName' => $first_name,
+                'lastName' => $last_name,
+                'username' => $username,
+                'password' => $password,
+            ]);
+
+            $data_session = [
+                'isLogin' => true,
+                'username' => $username,
+            ];
+
+            session()->set($data_session);
+
+            return redirect()->route('home-page')->with('success', 'Register is success');
+        } else {
+            return redirect()->back()->withInput()->with('error', 'Register is failed');
+        }
     }
 }
