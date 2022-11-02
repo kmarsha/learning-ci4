@@ -27,17 +27,22 @@ class LoginController extends BaseController
         $user = $this->model->where('username', $username)->first();
 
         if ($user != null) {
+            $role = $user->role;
+
             $verify_pass = password_verify($password, $user->password);
 
             if ($verify_pass) {
                 $data_session = [
                     'isLogin' => true,
                     'username' => $username,
+                    'role' => $role,
                 ];
 
                 session()->set($data_session);
 
-                return redirect()->route('home-page')->with('success', 'Login is success');
+                $route = ($role == 'admin') ? 'admin-home' : 'employee-home';
+
+                return redirect()->route($route)->with('success', 'Login is success');
             } else {
                 return redirect()->back()->withInput()->with('error', 'Password is wrong');
             }

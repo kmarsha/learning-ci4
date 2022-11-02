@@ -20,4 +20,18 @@ class Home extends BaseController
     {
         return "Placeholder 1: $var1 <br> Placeholder 2: $var2 <br> Placeholder 3: $var3";
     }
+
+    public function adminHome()
+    {
+        return view('admin/home', [
+            'title' => 'Home Admin'
+        ]);
+    }
+
+    public function employeeHome()
+    {
+        return view('employee/home', [
+            'title' => 'Home Employee'
+        ]);
+    }
 }

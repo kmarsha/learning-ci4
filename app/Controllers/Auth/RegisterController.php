@@ -42,22 +42,25 @@ class RegisterController extends BaseController
             $password = password_hash($this->request->getPost('password'), PASSWORD_BCRYPT);
             $first_name = $this->request->getPost('first_name');
             $last_name = $this->request->getPost('last_name');
+            $role = 'employee';
 
             $this->model->insert([
                 'firstName' => $first_name,
                 'lastName' => $last_name,
                 'username' => $username,
                 'password' => $password,
+                'role' => $role,
             ]);
 
             $data_session = [
                 'isLogin' => true,
                 'username' => $username,
+                'role' => $role,
             ];
 
             session()->set($data_session);
 
-            return redirect()->route('home-page')->with('success', 'Register is success');
+            return redirect()->route('employee-page')->with('success', 'Register is success');
         } else {
             return redirect()->back()->withInput()->with('error', 'Register is failed');
         }

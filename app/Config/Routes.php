@@ -41,14 +41,14 @@ $routes->get('/home', 'Home::homePage', ['as' => 'home-page']);
 
 // $routes->get('admin', 'Admin\ProductController::index');
 // $routes->get('/admin', 'ProductController::index', ['namespace' => 'App\Controllers\Admin']);
-$routes->group('', ['namespace' => 'App\Controllers\Admin'], function($routes) {
+$routes->group('', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
     $routes->get('/admin', 'ProductController::index');
     $routes->get('/admin/view', 'ProductController::view');
 });
 
 $routes->get('/placeholder/(.*)/and/(.*)/then/(.*)', 'Home::placeholder/$1/$2/$3');
 
-$routes->group('', ['filter' => 'guest'], function($routes) {
+$routes->group('', ['filter' => 'guest'], function ($routes) {
     $routes->get('/register', 'Auth\RegisterController::index', ['as' => 'register-view']);
     $routes->post('/register', 'Auth\RegisterController::auth', ['as' => 'register']);
 
@@ -56,7 +56,16 @@ $routes->group('', ['filter' => 'guest'], function($routes) {
     $routes->post('/login', 'Auth\LoginController::auth', ['as' => 'login']);
 });
 
-$routes->group('', ['filter' => 'auth'], function($routes) {
+$routes->group('', ['filter' => 'auth'], function ($routes) {
+
+    $routes->group('', ['filter' => 'isAdmin'], function ($routes) {
+        $routes->get('admin/home', 'Home::adminHome', ['as' => 'admin-home']);
+    });
+
+    $routes->group('', ['filter' => 'isEmployee'], function ($routes) {
+        $routes->get('employee/home', 'Home::employeeHome', ['as' => 'employee-home']);
+    });
+
     $routes->get('/user', 'UserController::index', ['as' => 'user-view']);
     $routes->get('/user/new', 'UserController::new');
     $routes->post('/user', 'UserController::create');
@@ -66,7 +75,6 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/logout', 'Auth\LoginController::logout', ['as' => 'logout']);
 });
 
-// $routes->get('')
 
 /*
  * --------------------------------------------------------------------

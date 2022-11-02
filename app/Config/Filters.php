@@ -2,7 +2,9 @@
 
 namespace Config;
 
+use App\Filters\Admin;
 use App\Filters\Auth;
+use App\Filters\Employee;
 use App\Filters\Guest;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
@@ -27,6 +29,8 @@ class Filters extends BaseConfig
         'secureheaders' => SecureHeaders::class,
         'auth'          => Auth::class,
         'guest'         => Guest::class,
+        'isAdmin'       => Admin::class,
+        'isEmployee'    => Employee::class,
     ];
 
     /**
